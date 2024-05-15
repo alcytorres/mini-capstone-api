@@ -1,10 +1,16 @@
 class ProductsController < ApplicationController
-  def hello
+  def index
     # show data from database to user
-    @product = Product
-    render template: "contacts/show"
+    @products = Product.all
+    render template: "products/index"
+  end
+
+  def show
+    @product = Product.first
+    render template: "products/show"
   end
 end
+
 
 
 # class ContactsController < ApplicationController
