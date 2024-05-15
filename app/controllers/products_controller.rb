@@ -11,9 +11,15 @@ class ProductsController < ApplicationController
   end
 
   def create
-    product = Product.new(name: "Jacket", price: 120, image_url: "https://cdn11.bigcommerce.com/s-hgn1l9sh63/images/stencil/1000w/products/484/62247/9ac73c38de59da9207ce10d24cf2bf539acb939f__15704.1704838056.386.513.jpg?c=1", description: "Warm and stylish")
-    product.save
-    render json: {message: "jello"}
+    # make a new product in the database
+    @product = Product.new(
+      name: "Gloves", 
+      price: 70, 
+      image_url: "https://cdn.shoplightspeed.com/shops/634255/files/58102779/650x750x1/arcteryx-fission-sv-gloves.jpg", 
+      description: "wind and waterproof", 
+    )
+    @product.save
+    render template: "products/show"
   end
 
 end
