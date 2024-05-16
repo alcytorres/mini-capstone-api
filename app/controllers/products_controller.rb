@@ -13,13 +13,29 @@ class ProductsController < ApplicationController
   def create
     # make a new product in the database
     @product = Product.new(
-      name: "Gloves", 
-      price: 70, 
-      image_url: "https://cdn.shoplightspeed.com/shops/634255/files/58102779/650x750x1/arcteryx-fission-sv-gloves.jpg", 
-      description: "wind and waterproof", 
+      name: params[:name], 
+      price: params[:price], 
+      image_url: params[:image_url],  
+      description: [:description], 
     )
     @product.save
     render template: "products/show"
+  end
+
+  def update
+    @product = Product.find_by(id: params[:id])
+    @product.name = params[:input_name]
+    @product.price = params[:input_price], 
+    @product.image_url = params[:input_image_url],  
+    @product.description = params[:input_description]
+    @product.save
+    render template: "products/show"
+  end
+
+  def destroy
+    product = Product.find_by(id: params[:id])
+    product.destroy
+    render json: {message: "product removed"}
   end
 
 end

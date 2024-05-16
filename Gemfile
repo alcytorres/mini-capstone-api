@@ -65,3 +65,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# Install CORS https://github.com/cyu/rack-cors
+gem "rack-cors"
