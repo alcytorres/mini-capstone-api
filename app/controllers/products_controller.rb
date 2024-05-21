@@ -16,18 +16,23 @@ class ProductsController < ApplicationController
       name: params[:name], 
       price: params[:price], 
       image_url: params[:image_url],  
-      description: [:description], 
+      description: params[:description], 
     )
-    @product.save
-    render template: "products/show"
+    if @product.save
+      render template: "products/show"
+    else
+      render json: {errors: @product.errors.full_messages}
+    end
   end
 
   def update
     @product = Product.find_by(id: params[:id])
-    @product.name = params[:input_name]
-    @product.price = params[:input_price], 
-    @product.image_url = params[:input_image_url],  
-    @product.description = params[:input_description]
+    @product.update(
+      name: params[:name] || @product.name, 
+      price: params[:price] || @product.price,
+      image_url: params[:image_url] || @product.image_url,
+      description: params[:description] || @product.description,
+    )
     @product.save
     render template: "products/show"
   end
@@ -40,12 +45,3 @@ class ProductsController < ApplicationController
 
 end
 
-# class ContactsController < ApplicationController
-#   def show
-#     # get data from the db
-#     contact = Contact.find_by(id: 3)
-#     render json: {message: contact.first_name}
-#     @contact = Contact.find_by(id: 3)
-#     render template: "contacts/show"
-#   end
-# end
