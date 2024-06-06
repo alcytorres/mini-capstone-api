@@ -1,13 +1,13 @@
 class ProductsController < ApplicationController
   def index
     # show data from database to user
-    @products = Product.all
-    render template: "products/index"
+    @products = Product.includes(:images).all
+    render :index
   end
 
   def show
-    @product = Product.find_by(id: params[:id])
-    render template: "products/show"
+    @product = Product.find(params[:id])
+    render json: @product.to_json(include: :images)
   end
 
   def create
@@ -18,11 +18,12 @@ class ProductsController < ApplicationController
       image_url: params[:image_url],  
       description: params[:description], 
     )
-    if @product.save
-      render template: "products/show"
-    else
-      render json: {errors: @product.errors.full_messages}
-    end
+    render :show
+    # if @product.save
+    #   render template: "products/show"
+    # else
+    #   render json: {errors: @product.errors.full_messages}
+    # end
   end
 
   def update
@@ -33,15 +34,14 @@ class ProductsController < ApplicationController
       image_url: params[:image_url] || @product.image_url,
       description: params[:description] || @product.description,
     )
-    @product.save
-    render template: "products/show"
+    # @product.save
+    render :show
   end
 
   def destroy
     product = Product.find_by(id: params[:id])
     product.destroy
-    render json: {message: "product removed"}
+    render json: {message: "product removed successfully!"}
   end
-
 end
 

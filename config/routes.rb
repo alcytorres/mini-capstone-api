@@ -8,10 +8,17 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   get "/products" => "products#index"
-  # get "/show_products" => "products#show"
   get "/products/:id" => "products#show"
   post "/products" => "products#create"
   patch "/products/:id" => "products#update"
-  delete "/products/:id" => "products#destroy"
-  
+  delete "/products/:id" => "products#destroy" 
+
+
+  post "/users" => "users#create"
+
 end
+# REST
+
+
+# CRUD through web requests
+# conventions for urls/actions
