@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
-
   def create
     user = User.find_by(email: params[:email])
+    # checking if the email provded mathces an account
     if user && user.authenticate(params[:password])
       jwt = JWT.encode(
         {
@@ -16,5 +16,4 @@ class SessionsController < ApplicationController
       render json: {}, status: :unauthorized
     end
   end
-
 end

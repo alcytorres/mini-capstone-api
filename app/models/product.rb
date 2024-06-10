@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   # validates :description, length: {in: 1..100}
   belongs_to :supplier
   has_many :images
+  has_many :iorders
 end
 
 
